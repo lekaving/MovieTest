@@ -1,0 +1,12 @@
+<!--<div class="input-group input-group-lg">-->
+<!--  <div class="input-group-prepend">-->
+<!--    <span class="input-group-text" id="inputGroup-sizing-lg">Search</span>-->
+<!--  </div>-->
+<!--  <input type="text" (input)="onInput($event)" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">-->
+<!--</div>-->
+
+<input [formControl]="myControl" [matAutocomplete]="auto" matInput type="text" (keyup.enter)="onEnter()">
+
+<mat-autocomplete #auto="matAutocomplete">
+  <mat-option *ngFor="let suggestion of (suggestions | async)" [value]="suggestion">{{suggestion.title}}</mat-option>
+</mat-autocomplete>

@@ -1,0 +1,3 @@
+<div class="row mb-2 mt-2">
+  <app-movie-list-item class="col-md-6" *ngFor="let movie of (searched | async)" [movie]="movie"></app-movie-list-item>
+</div>

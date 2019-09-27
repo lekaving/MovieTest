@@ -1,0 +1,4 @@
+<app-search></app-search>
+<div class="row mb-2 mt-2">
+  <app-movie-list-item class="col-md-6" *ngFor="let movie of (movies$ | async)" [movie]="movie"></app-movie-list-item>
+</div>

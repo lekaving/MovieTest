@@ -1,0 +1,17 @@
+<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative ">
+  <div class="image col-auto">
+    <a routerLink="/movie/{{movie.id}}">
+      <img alt="" src="{{movie.poster_path | imageSizeResolver:185}}">
+    </a>
+  </div>
+  <div class="content col pt-4 pr-4 pl-4 d-flex flex-column position-static justify-content-between">
+    <div class="title">
+      <a routerLink="/movie/{{movie.id}}">{{movie.title}}</a>
+      <span>{{movie.release_date | date:'MMMM d, y'}}</span>
+    </div>
+    <p class="overview">{{movie.overview}}</p>
+    <div class="view_more">
+      <a routerLink="/movie/{{movie.id}}">More Info</a>
+    </div>
+  </div>
+</div>
