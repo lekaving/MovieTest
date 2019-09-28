@@ -1,19 +1,27 @@
-import {HttpRequest} from '@angular/common/http';
+import {HttpErrorResponse, HttpEvent, HttpEventType, HttpRequest} from '@angular/common/http';
 
 export class HttpStateModel {
-  state: string;
+  requestStatus: HttpEventType;
+  request: HttpRequest<any> | HttpEvent<any> | HttpErrorResponse;
 }
 
-export class HRequest {
-  static readonly type = '[HTTP] Request';
+export class RequestSent {
+  static readonly type = '[HTTP] Request Sent';
 
   constructor(public payload: HttpRequest<any>) {
   }
 }
 
-export class RequestDone {
+export class RequestResponse {
   static readonly type = '[HTTP] Request Done';
 
-  constructor(public payload: any) {
+  constructor(public payload: HttpEvent<any>) {
+  }
+}
+
+export class RequestFailed {
+  static readonly type = '[HTTP] Request Failed';
+
+  constructor(public payload: HttpErrorResponse) {
   }
 }
