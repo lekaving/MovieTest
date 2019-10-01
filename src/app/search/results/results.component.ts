@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from '@ngxs/store';
 import {Router} from '@angular/router';
-import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 
 import {SearchSelectors} from '../../state/search/search.selectors';
 import {RouterSelectors} from '../../state/router/router.selectors';
+import {filter, switchMap, takeUntil} from 'rxjs/operators';
 import {SearchByQuery, SearchTypeEnum} from '../../state/search/search-state-model';
 
 @Component({
@@ -23,13 +23,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.searched.pipe(takeUntil(this.destroy$)).subscribe((res) => {
-      if (!res) {
-        this.queryParams.subscribe(params => {
-          this.store.dispatch(new SearchByQuery({query: params.query, type: SearchTypeEnum.movie}));
-        });
-      }
-    });
+    this.searched.pipe(
+      takeUntil(this.destroy$),
+      switchMap(res => this.queryParams.pipe(filter(a => !res)))
+    ).subscribe(res => this.store.dispatch(new SearchByQuery({query: res.query, type: SearchTypeEnum.movie})));
   }
 
   ngOnDestroy(): void {
